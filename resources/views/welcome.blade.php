@@ -92,11 +92,4 @@
             </div>
         </div>
     </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
-    <script>
-        var socket = io('http://localhost:3000');
-        socket.on('connect', function () {
-            socket.send('msg', {'title': 'ceva'});
-        });
-    </script>
 </html>

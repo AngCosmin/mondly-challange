@@ -12,6 +12,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @yield('after-styles')
 </head>
 <body>
     <div id="app">
@@ -76,5 +78,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+
+    @yield('after-scripts')
 </body>
 </html>
