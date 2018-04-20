@@ -1,77 +1,56 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
-
-                <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+    <section id="wrapper">
+        <div class="login-register" style="background-image:url(theme/assets/images/background/login-register.jpg);">
+            <div class="login-box card">
+                <div class="card-body">
+                    <h3 class="box-title m-b-20">Sign Up</h3>
+                    <form class="form-horizontal form-material" id="loginform" method="post" action="{{ route('register') }}">
                         {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        @include('partials.messages')
 
                         <div class="form-group">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                            <div class="col-xs-12">
+                                <input class="form-control" name="name" value="{{ old('name') }}" type="text" autofocus required placeholder="Name">
                             </div>
                         </div>
-
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" name="email" value="{{ old('email') }}" type="email" required="" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" name="password" required placeholder="Password">
+                            </div>
+                        </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Register
-                                </button>
+                            <div class="col-xs-12">
+                                <input class="form-control" type="password" name="password_confirmation" required placeholder="Confirm Password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <div class="checkbox checkbox-success p-t-0">
+                                    <input id="checkbox-signup" type="checkbox"  class="filled-in chk-col-light-blue">
+                                    <label for="checkbox-signup"> I agree to all <a href="javascript:void(0)">Terms</a></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center p-b-20">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary btn-lg btn-block btn-rounded text-uppercase waves-effect waves-light" type="submit">Sign Up</button>
+                            </div>
+                        </div>
+                        <div class="form-group m-b-0">
+                            <div class="col-sm-12 text-center">
+                                Already have an account? <a href="{{ route('login') }}" class="text-info m-l-5"><b>Sign In</b></a>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection

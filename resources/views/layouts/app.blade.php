@@ -16,11 +16,17 @@
     <!-- Styles -->
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
+    <link href="theme/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="theme/horizontal/css/pages/login-register-lock.css" rel="stylesheet">
     <link href="theme/horizontal/css/pages/pages.css" rel="stylesheet">
     <link href="theme/horizontal/css/style.css" rel="stylesheet">
     <link href="theme/horizontal/css/spinners.css" rel="stylesheet">
     <link href="theme/horizontal/css/colors/blue.css" id="theme" rel="stylesheet">
     <link href="theme/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
 
     @yield('after-styles')
 </head>
@@ -95,13 +101,15 @@
         {{--@yield('content')--}}
     {{--</div>--}}
 
-    <div id="main-wrapper">
-        <div class="page-wrapper">
-            <div class="container-fluid">
-                @yield('content')
-            </div>
-        </div>
-    </div>
+    {{--<div id="main-wrapper">--}}
+        {{--<div class="page-wrapper">--}}
+            {{--<div class="container-fluid">--}}
+                {{--@yield('content')--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+
+    @yield('content')
 
     <!-- Scripts -->
 {{--    <script src="{{ asset('js/app.js') }}"></script>--}}
@@ -114,15 +122,12 @@
     <!-- Bootstrap tether Core JavaScript -->
     <script src="theme/assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="theme/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="theme/horizontal/js/perfect-scrollbar.jquery.min.js"></script>
-    <!--Wave Effects -->
     <script src="theme/horizontal/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="theme/horizontal/js/sidebarmenu.js"></script>
-    <!--stickey kit -->
     <script src="theme/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
     <script src="theme/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+
     <!--Custom JavaScript -->
     <script src="theme/horizontal/js/custom.min.js"></script>
 </body>
