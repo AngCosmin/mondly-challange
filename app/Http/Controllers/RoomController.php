@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoomController extends Controller
 {
@@ -16,6 +17,7 @@ class RoomController extends Controller
         $room = new Room();
         $room->fill($request->all());
         $room->slug = str_slug($request->name, '-') . '-' . rand(100, 999);
+        $room->created_by = Auth::id();
         $room->save();
 
         return redirect()->route('room.join', $room->slug);

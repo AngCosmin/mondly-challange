@@ -33,25 +33,30 @@
                     <table data-toggle="table" data-height="280" data-mobile-responsive="true" data-sort-order="desc" class="table">
                         <thead>
                         <tr>
-                            <th data-field="name" data-sortable="true"> Name </th>
-                            <th data-field="stargazers_count" data-sortable="true" data-width="100"> Stars </th>
-                            <th data-field="forks_count" data-sortable="true" data-width="100"> Forks </th>
-                            <th data-field="description" data-sortable="true"> Description </th>
+                            <th> Name </th>
+                            <th> Known language </th>
+                            <th> Foreign language </th>
+                            <th> Max Players </th>
+                            <th> Created by </th>
+                            <th> Actions </th>
                         </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                            </tr>
-                            <tr>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                                <td>asdasd</td>
-                            </tr>
+
+                            @foreach ($rooms as $room)
+
+                                <tr>
+                                    <td>{{ $room->name }}</td>
+                                    <td>{{ $room->known_lang->name }}</td>
+                                    <td>{{ $room->foreign_lang->name }}</td>
+                                    <td>{{ $room->max_players }}</td>
+                                    <td>{{ $room->created_by_user->name }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" type="button">Join</button>
+                                    </td>
+                                </tr>
+
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
