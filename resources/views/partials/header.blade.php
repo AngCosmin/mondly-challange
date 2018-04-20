@@ -59,10 +59,8 @@
                                     <div class="dw-user-box">
                                         <div class="u-img"><img src="theme/assets/images/users/1.jpg" alt="user"></div>
                                         <div class="u-text">
-                                            <h4>Steave Jobs</h4>
-                                            <p class="text-muted">varun@gmail.com</p><a href="pages-profile.html"
-                                                                                        class="btn btn-rounded btn-danger btn-sm">View
-                                                Profile</a></div>
+                                            <h4>{{ Auth::user()->name }}</h4>
+                                        </div>
                                     </div>
                                 </li>
                                 <li role="separator" class="divider"></li>
@@ -73,7 +71,7 @@
                                 <li>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
                                         {{ csrf_field() }}
-                                        <a href="" id="logout"><i class="fa fa-power-off"></i>Logout</a>
+                                        <a href="" id="logout"><i class="fa fa-power-off"></i> Logout</a>
                                     </form>
                                 </li>
                             </ul>
