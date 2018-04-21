@@ -8,6 +8,7 @@ io.on('connection', function (socket) {
 
 var clients = {};
 var roomsArray = {};
+var inProgressRooms = [];
 var rooms = io.of('/room');
 
 rooms.on('connection', function (socket){
@@ -48,8 +49,42 @@ rooms.on('connection', function (socket){
         rooms.in(socket.room).emit('update-joined-users', roomsArray[socket.room]);
     });
 
+    socket.on('start-round', function (data) {
+        let room = socket.room;
+        let timestamp = Math.round((new Date()).getTime() / 1000);
+
+        rooms.in(room).emit('start-round');
+
+        inProgressRooms.push({ room: room, started_at: timestamp });
+
+        console.log(inProgressRooms);
+    });
+
     socket.on('chat-message', function (data) {
         rooms.in(data.room).emit('message', data.message);
         console.log('Mesajul ' + data.message);
     })
 });
+
+setInterval(function() {
+    let current_timestamp = Math.round((new Date()).getTime() / 1000);
+
+    inProgressRooms.forEach(function (element) {
+        let passed_time = current_timestamp - element.started_at;
+        if (passed_time > 10) {
+            rooms.in(element.room).emit('finish-round');
+
+            for (let i = 0; i < inProgressRooms.length; i++) {
+                if (inProgressRooms[i]) {
+                    inProgressRooms.splice(i, 1);
+                }
+            }
+        }
+        else {
+            let time_left = 10 - passed_time;
+            rooms.in(element.room).emit('update-time-left', { timeleft: time_left });
+        }
+    });
+
+    console.log(inProgressRooms);
+}, 1000);
