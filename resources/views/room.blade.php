@@ -19,13 +19,18 @@
                         @endif
 
                         <div class="question">
-                            <h3>Question <small class="pull-right">Time left <span id="time-left">#</span></small></h3>
 
                         </div>
+                        <h3>
+                            <small class="pull-right">Time left <span id="time-left">#</span></small>
+                        </h3>
                         <br>
-                        <div class="answer">
+                        <form id="answer-form">
+                            <div class="answer">
 
-                        </div>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -122,7 +127,11 @@
                 success: function (data) {
                     $('#start-round').hide();
 
-                    socket.emit('start-round', { 'gamemode': gamemode, 'main_language': main_language, 'foreign_language': foreign_language });
+                    socket.emit('start-round', {
+                        'gamemode': gamemode,
+                        'main_language': main_language,
+                        'foreign_language': foreign_language
+                    });
                 }
             });
         });
@@ -145,7 +154,7 @@
         });
 
         socket.on('update-time-left', function (data) {
-           $('#time-left').html(data.timeleft);
+            $('#time-left').html(data.timeleft);
         });
 
         socket.on('finish-round', function (data) {
@@ -153,7 +162,26 @@
         });
 
         socket.on('new-question', function (data) {
-            
+            console.log(data);
+            $('.question').html('');
+            $('.answer').html('');
+
+
+            $('.question').append('<h3>' + data.question + '</h3>');
+            $('.question').append('<h2>' + data.word + '</h2>');
+
+            if (gamemode == '{{ \App\Models\Enums\GameMode::TRANSLATE_W }}') {
+                data.options.forEach(function (element) {
+                    $('.answer').append('<input type="radio" class="with-gap radio-col-light-blue" name="answer" value="' + element + '" id="' + element + '"><label for="'+element+'">'+element+'</label>')
+                });
+                $('#answer-form').append('<button class="btn btn-primary" id="send-answer">Send Answer</button>');
+                $('#send-answer').click(function (e) {
+                    e.preventDefault();
+                    let answer = $('input[name=answer]:checked').val();
+                    
+                    socket.emit('answer',  {'answer': answer});
+                })
+            }
         });
 
         socket.on('update-joined-users', function (data) {

@@ -63,11 +63,11 @@ rooms.on('connection', function (socket){
 
         console.log(inProgressRooms);
 
-        const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
+        const url = "http://mondly.challenge.local:8080/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
         axios.get(url)
             .then(response => {
                 let result = response.data;
-                rooms.in(room).emit('new-question', { 'question': result.question, 'word': result.word, 'option': result.options });
+                rooms.in(room).emit('new-question', { 'question': result.question, 'word': result.word, 'options': result.options });
             })
             .catch(error => {
                 console.log(error);
