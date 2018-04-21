@@ -15,7 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $all_languages = Language::pluck('name', 'id');
+        $all_languages = Language::where('is_supported',1)->pluck('name', 'id');
         $rooms = Room::orderBy('created_at', 'desc')->get();
 
         return view('home', compact('all_languages', 'rooms'));

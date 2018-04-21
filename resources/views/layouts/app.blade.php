@@ -16,13 +16,13 @@
     <!-- Styles -->
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
 
-    <link href="theme/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="theme/horizontal/css/pages/login-register-lock.css" rel="stylesheet">
-    <link href="theme/horizontal/css/pages/pages.css" rel="stylesheet">
-    <link href="theme/horizontal/css/style.css" rel="stylesheet">
-    <link href="theme/horizontal/css/spinners.css" rel="stylesheet">
-    <link href="theme/horizontal/css/colors/blue.css" id="theme" rel="stylesheet">
-    <link href="theme/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('theme/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('theme/horizontal/css/pages/login-register-lock.css') }}" rel="stylesheet">
+    <link href="{{ asset('theme/horizontal/css/pages/pages.css') }}" rel="stylesheet">
+    <link href="{{ asset('theme/horizontal/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('theme/horizontal/css/spinners.css') }}" rel="stylesheet">
+    <link href="{{ asset('theme/horizontal/css/colors/blue.css') }}" id="theme" rel="stylesheet">
+    <link href="{{ asset('theme/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <script src="http://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
@@ -59,17 +59,17 @@
 
     @yield('after-scripts')
 
-    <script src="theme/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('theme/assets/plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="theme/assets/plugins/bootstrap/js/popper.min.js"></script>
-    <script src="theme/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="theme/horizontal/js/perfect-scrollbar.jquery.min.js"></script>
-    <script src="theme/horizontal/js/waves.js"></script>
-    <script src="theme/horizontal/js/sidebarmenu.js"></script>
-    <script src="theme/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    <script src="theme/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="{{ asset('theme/assets/plugins/bootstrap/js/popper.min.js') }}"></script>
+    <script src="{{ asset('theme/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('theme/horizontal/js/perfect-scrollbar.jquery.min.js') }}"></script>
+    <script src="{{ asset('theme/horizontal/js/waves.js') }}"></script>
+    <script src="{{ asset('theme/horizontal/js/sidebarmenu.js') }}"></script>
+    <script src="{{ asset('theme/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
+    <script src="{{ asset('theme/assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 
     <!--Custom JavaScript -->
-    <script src="theme/horizontal/js/custom.min.js"></script>
+    <script src="{{ asset('theme/horizontal/js/custom.min.js') }}"></script>
 </body>
 </html>
