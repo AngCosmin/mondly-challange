@@ -26,6 +26,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'room', 'as' => 'room.'], function () {
         Route::get('{slug}', 'RoomController@joinRoom')->name('join');
 
+        Route::get('{slug}/start', 'RoomController@joinRoom')->name('start');
+
         Route::post('create', 'RoomController@create')->name('create');
     });
 

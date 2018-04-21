@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-body">
                         @if(Auth::id() == $room->created_by)
-                            <button class="btn btn-primary" id="start">
+                            <button class="btn btn-primary" id="start-game">
                                 Start
                             </button>
                         @endif
@@ -150,6 +150,19 @@
             success: function (data) {
                 console.log(data)
             }
+        });
+
+        $('#start-game').click(function () {
+            $.ajax({
+                url: '{{ route('room.join', $room->slug) }}',
+                type: 'GET',
+                error: function () {
+                    console.log('error')
+                },
+                success: function (data) {
+                    $('#start-game').hide();
+                }
+            });
         });
 
         var socket = io('http://localhost:3000/room');
