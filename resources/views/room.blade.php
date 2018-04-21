@@ -178,7 +178,7 @@
                 $('#send-answer').click(function (e) {
                     e.preventDefault();
                     let answer = $('input[name=answer]:checked').val();
-                    
+
                     socket.emit('answer',  {'answer': answer});
                 })
             }
