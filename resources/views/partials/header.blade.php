@@ -100,7 +100,7 @@
                 <li>
                     <a class="has-arrow waves-effect waves-dark" href="/leaderboard" aria-expanded="false">
                         <i class="fa fa-trophy" aria-hidden="true"></i>
-                        <span class="hide-menu">LeaderBoard</span>
+                        <span class="hide-menu">Leaderboard</span>
                     </a>
                 </li>
 
