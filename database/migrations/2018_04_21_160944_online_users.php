@@ -14,7 +14,7 @@ class OnlineUsers extends Migration
     public function up()
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->integer('online')->after('foreign_language');
+            $table->integer('online')->after('foreign_language')->default(0);
         });
     }
 
