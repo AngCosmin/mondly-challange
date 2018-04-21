@@ -234,20 +234,8 @@
 
         socket.on('game-finished', function (data) {
             $.ajax({
-                url: '{{ route('room.stop', $room->slug) }}',
-                type: 'GET',
-                error: function () {
-                    console.log('error')
-                },
-                success: function (data) {
-                    $('#start-round').hide();
-
-                    socket.emit('start-round', {
-                        'gamemode': gamemode,
-                        'main_language': main_language,
-                        'foreign_language': foreign_language
-                    });
-                }
+                url: '{{ route('room.finish', $room->slug) }}',
+                type: 'GET'
             });
         });
         /*
