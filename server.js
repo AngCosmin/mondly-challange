@@ -69,7 +69,7 @@ rooms.on('connection', function (socket){
         for (let i = 0; i < 5; i++) {
             axios.get(url).then(response => {
                 let result = response.data;
-                let object = { 'question': result.question, 'word': result.word, 'options': result.options, 'started_at': 0 }
+                let object = { 'question': result.question, 'word': result.word, 'options': result.options, 'answer': result.answer, 'started_at': 0 }
 
                 roomsQuestions[room].push(object);
 
@@ -91,7 +91,14 @@ rooms.on('connection', function (socket){
     socket.on('chat-message', function (data) {
         rooms.in(data.room).emit('message', data.message);
         console.log('Mesajul ' + data.message);
-    })
+    });
+
+    socket.on('answer', function (data) {
+        let answer = data.answer;
+        let correct_answer = roomsQuestions[socket.room][0].answer;
+
+        console.log('Your answer ' + answer + ' Correct ' + correct_answer);
+    });
 });
 
 setInterval(function() {
