@@ -13,12 +13,14 @@
                 <div class="card">
                     <div class="card-body">
                         @if(Auth::id() == $room->created_by)
-                            <button class="btn btn-primary" id="start-game">
+                            <button class="btn btn-primary" id="start-round">
                                 Start
                             </button>
                         @endif
+
                         <div class="question">
-                            <h3>Question</h3>
+                            <h3>Question <small class="pull-right">Time left <span id="time-left">#</span></small></h3>
+
                         </div>
                         <br>
                         <div class="answer">
@@ -64,34 +66,6 @@
                                                 <div class="chat-time">10:56 am</div>
                                             </li>
                                             <!--chat Row -->
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>Bianca Doe</h5>
-                                                    <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li>
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>Bianca Doe</h5>
-                                                    <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li>
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>Bianca Doe</h5>
-                                                    <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li>
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>Bianca Doe</h5>
-                                                    <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li>
                                             <li>
                                                 <div class="chat-content">
                                                     <h5>Bianca Doe</h5>
@@ -152,7 +126,7 @@
             }
         });
 
-        $('#start-game').click(function () {
+        $('#start-round').click(function () {
             $.ajax({
                 url: '{{ route('room.join', $room->slug) }}',
                 type: 'GET',
@@ -161,6 +135,8 @@
                 },
                 success: function (data) {
                     $('#start-game').hide();
+
+                    socket.emit('start-round');
                 }
             });
         });
@@ -169,7 +145,6 @@
         var room = '{{ $room->slug }}';
         var userid = '{{ Auth::id() }}';
         var username = '{{ Auth::user()->name }}';
-
 
         socket.on('connect', function () {
             socket.emit('join-room', {'room': room, 'userid': userid, 'username': username});
@@ -181,6 +156,14 @@
 
         socket.on('message', function (data) {
             console.log('Message ' + data);
+        });
+
+        socket.on('update-time-left', function (data) {
+           $('#time-left').html(data.timeleft);
+        });
+
+        socket.on('finish-round', function (data) {
+
         });
 
         socket.on('update-joined-users', function (data) {
