@@ -7,6 +7,7 @@ use App\Models\Language;
 use App\Models\Phrase;
 use App\Models\Room;
 use App\Models\Word;
+use App\User;
 use Illuminate\Http\Request;
 use Stichoza\GoogleTranslate\TranslateClient;
 
@@ -51,5 +52,11 @@ class QuizController extends Controller
         }
 
         return json_encode($quiz_question);
+    }
+
+    public function addPoints(Request $request){
+        $user = User::find($request->user_id);
+        $user->total_points += 5;
+        $user->save();
     }
 }
