@@ -32,7 +32,7 @@
                             <th> Name </th>
                             <th> Known language </th>
                             <th> Foreign language </th>
-                            <th> Max Players </th>
+                            <th> Players </th>
                             <th> Created by </th>
                             <th> Status </th>
                             <th> Actions </th>

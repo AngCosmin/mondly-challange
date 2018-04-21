@@ -94,7 +94,7 @@
 
         $('#start-round').click(function () {
             $.ajax({
-                url: '{{ route('room.join', $room->slug) }}',
+                url: '{{ route('room.start', $room->slug) }}',
                 type: 'GET',
                 error: function () {
                     console.log('error')

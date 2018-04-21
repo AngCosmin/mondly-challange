@@ -53,7 +53,6 @@ rooms.on('connection', function (socket){
 
     socket.on('start-round', function (data) {
         let room = socket.room;
-        let timestamp = Math.round((new Date()).getTime() / 1000);
         let gamemode = data.gamemode;
         let main_language = data.main_language;
         let foreign_language = data.foreign_language;
@@ -63,7 +62,7 @@ rooms.on('connection', function (socket){
         console.log(inProgressRooms);
 
         // const url = "http://mondly.challenge.local:8080/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
-        const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
+        // const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
 
         // Generate 5 questions
         roomsQuestions[room] = [];
