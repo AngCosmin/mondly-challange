@@ -45,7 +45,6 @@ class QuizController extends Controller
             case GameMode::PICTURE:
                 $word = Word::inRandomOrder()->limit(1)->first();
                 $quiz_question['question'] = $translate_questions->translate(('Write down the object you see in this picture'));
-                $quiz_question['word'] =  $translate_questions->translate($word->word);
                 $quiz_question['answer'] = $translate_answers->translate($word->word);
                 $quiz_question['picture'] = $word->piture;
                 break;

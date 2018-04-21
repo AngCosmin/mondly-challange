@@ -94,12 +94,13 @@
 
         $('#start-round').click(function () {
             $.ajax({
-                url: '{{ route('room.join', $room->slug) }}',
+                url: '{{ route('room.start', $room->slug) }}',
                 type: 'GET',
                 error: function () {
                     console.log('error')
                 },
                 success: function (data) {
+                    console.log(data);
                     $('#start-round').hide();
 
                     socket.emit('start-round', {
@@ -169,9 +170,11 @@
 
 
             $('.question').append('<h3>' + data.question + '</h3>');
-            $('.question').append('<h2>' + data.word + '</h2>');
 
             if (gamemode == '{{ \App\Models\Enums\GameMode::TRANSLATE_W }}') {
+
+                $('.question').append('<h2>' + data.word + '</h2>');
+
                 data.options.forEach(function (element) {
                     $('#answer-form').append(`
                         <input type="radio" class="with-gap radio-col-light-blue" name="answer" value="${element}" id="${element}">
@@ -187,6 +190,10 @@
 
                     socket.emit('answer',  {'answer': answer});
                 })
+            }
+
+            if(gamemode == '{{ \App\Models\Enums\GameMode::PICTURE }}'){
+                
             }
         });
 

@@ -32,9 +32,6 @@ class RoomController extends Controller
             return redirect()->route('home')->withErrors('Room already in game!');
         }
 
-        $room->status = RoomStatus::IN_PROGRESS;
-        $room->save();
-
         return view('room', compact('room'));
     }
 
@@ -43,5 +40,7 @@ class RoomController extends Controller
 
         $room->status = RoomStatus::IN_PROGRESS;
         $room->save();
+
+        return $slug;
     }
 }
