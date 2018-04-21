@@ -32,6 +32,6 @@ class RoomController extends Controller
             return redirect()->route('home')->with('info', 'Room not found!');
         }
 
-        return view('room');
+        return view('room', compact('slug'));
     }
 }
