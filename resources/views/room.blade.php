@@ -40,13 +40,12 @@
                                 <div class="table-responsive">
                                     <table class="table color-bordered-table info-bordered-table" style="height: 100%">
                                         <thead>
-                                        <tr>
-                                            <th>In this room</th>
-                                        </tr>
+                                            <tr>
+                                                <th>In this room</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        <tr id="connected-users">
-                                        </tr>
+                                            <tr id="connected-users"></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -89,9 +88,26 @@
         var gamemode = '{{ $room->game_mode }}';
         var main_language = '{{ $room->known_lang->short_code }}';
         var foreign_language = '{{ $room->foreign_lang->short_code }}';
+        var socket = io('http://localhost:3000/room');
+        var room = '{{ $room->slug }}';
+        var userid = '{{ Auth::id() }}';
+        var username = '{{ Auth::user()->name }}';
 
         $('#time-left-all').hide();
 
+        /*
+            Send message to other clients
+        */
+        $('#chat-send').click(function () {
+            if ($('#chat-message').val() != '') {
+                socket.emit('chat-message', {'room': room, 'username': username, 'message': $('#chat-message').val()});
+                $('#chat-message').val('');
+            }
+        });
+
+        /*
+            Start round
+         */
         $('#start-round').click(function () {
             $.ajax({
                 url: '{{ route('room.start', $room->slug) }}',
@@ -100,7 +116,6 @@
                     console.log('error')
                 },
                 success: function (data) {
-                    console.log(data);
                     $('#start-round').hide();
 
                     socket.emit('start-round', {
@@ -112,22 +127,16 @@
             });
         });
 
-        var socket = io('http://localhost:3000/room');
-        var room = '{{ $room->slug }}';
-        var userid = '{{ Auth::id() }}';
-        var username = '{{ Auth::user()->name }}';
-
+        /*
+            Join on room
+        */
         socket.on('connect', function () {
             socket.emit('join-room', {'room': room, 'userid': userid, 'username': username});
         });
 
-        $('#chat-send').click(function () {
-            if ($('#chat-message').val() != '') {
-                socket.emit('chat-message', {'room': room, 'username': username, 'message': $('#chat-message').val()});
-                $('#chat-message').val('');
-            }
-        });
-
+        /*
+            Add message to chat
+         */
         socket.on('message', function (data) {
             $('.chat-content').prepend(`
                 <h5>${data.username}</h5>
@@ -135,10 +144,16 @@
             `);
         });
 
+        /*
+            Update time left
+         */
         socket.on('update-time-left', function (data) {
             $('#time-left').html(data.timeleft);
         });
 
+        /*
+            Restart everything on game finish
+         */
         socket.on('game-finished', function (data) {
             $('#start-round').show();
             $('.question').html('');
@@ -146,6 +161,9 @@
             $('#time-left-all').hide();
         });
 
+        /*
+            Evaluate question and and points
+         */
         socket.on('evaluate', function (data) {
            if (data.correct === 'true') {
                $('.question').append('<div class="text-success">Correct</div>');
@@ -163,6 +181,9 @@
            }
         });
 
+        /*
+            On new question, add question and options to view
+         */
         socket.on('new-question', function (data) {
             $('#time-left-all').show();
             $('.question').html('');
@@ -214,7 +235,9 @@
         socket.on('game-finished', function (data) {
 
         });
-
+        /*
+            Update users in room
+         */
         socket.on('update-joined-users', function (data) {
             $('#connected-users').html('');
             data.forEach(function (element) {

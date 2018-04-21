@@ -46,7 +46,7 @@
                                     <td>{{ $room->slug }}</td>
                                     <td>{{ $room->known_lang->name }}</td>
                                     <td>{{ $room->foreign_lang->name }}</td>
-                                    <td>{{ $room->max_players }}</td>
+                                    <td><span id="{{ $room->slug }}">0</span> / {{ $room->max_players }}</td>
                                     <td>{{ $room->created_by_user->name }}</td>
                                     @if($room->status == \App\Models\Enums\RoomStatus::OPEN)
                                         <td><span class="label label-success">Open</span></td>
@@ -133,6 +133,17 @@
              let room_name = $('input[name=join-room-name]').val();
 
             window.location.href = '/room/' + room_name;
+        });
+
+        var socket = io('http://localhost:3000/home');
+
+        socket.on('online_rooms', function (data) {
+            for(key in data){
+                // The key is key
+                // The value is obj[key]
+                $('#' + key).html(data[key]);
+                console.log(key + " " + data[key]);
+            }
         });
     </script>
 @endsection

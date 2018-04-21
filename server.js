@@ -1,17 +1,14 @@
 var io = require('socket.io')(3000);
 var axios = require("axios");
 
-io.on('connection', function (socket) {
-	socket.on('msg', function (data) {
-	    console.log(data);
-    });
-});
-
 var clients = {};
 var roomsArray = {};
 var roomsQuestions = {};
+var roomOnlineUsers = {};
 var inProgressRooms = [];
+
 var rooms = io.of('/room');
+var home = io.of('/home');
 
 rooms.on('connection', function (socket){
     socket.on('join-room', function (data) {
@@ -29,12 +26,22 @@ rooms.on('connection', function (socket){
             roomsArray[room] = [];
         }
 
+        if (!(room in roomOnlineUsers)) {
+            roomOnlineUsers[room] = 1;
+        }
+        else {
+            roomOnlineUsers[room]++;
+        }
+
         roomsArray[room].push({ 'user_id': userid, 'username': username });
 
         socket.join(room);
         rooms.in(room).emit('update-joined-users', roomsArray[room]);
 
+        home.emit('online_rooms', roomOnlineUsers);
+
         console.log(socket.username + ' connected to room ' + socket.room);
+        console.log(roomOnlineUsers);
     });
 
     socket.on('disconnect', function () {
@@ -48,7 +55,12 @@ rooms.on('connection', function (socket){
             }
         }
 
+        roomOnlineUsers[socket.room]--;
+
+        home.emit('online_rooms', roomOnlineUsers);
+
         rooms.in(socket.room).emit('update-joined-users', roomsArray[socket.room]);
+        console.log(roomOnlineUsers);
     });
 
     socket.on('start-round', function (data) {
@@ -103,6 +115,10 @@ rooms.on('connection', function (socket){
             socket.emit('evaluate', { 'correct': 'false' });
         }
     });
+});
+
+home.on('connection', function (socket) {
+    home.emit('online_rooms', roomOnlineUsers);
 });
 
 setInterval(function() {
