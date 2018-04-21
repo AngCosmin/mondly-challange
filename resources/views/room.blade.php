@@ -19,7 +19,7 @@
                         </h3>
 
                         <br>
-                        <form id="answer-form"></form>
+                        <div id="answer-form"></div>
                     </div>
                 </div>
             </div>
@@ -193,8 +193,26 @@
             }
 
             if(gamemode == '{{ \App\Models\Enums\GameMode::PICTURE }}'){
-                
+                $('#answer-form').append(`<img src="${data.picture}" height="150px"/><br><br>`);
+
+                $('#answer-form').append(`<div class="input-group">
+                <input type="text" name="answer" class="form-control" placeholder="Answer"/>
+                <span class="input-group-btn">
+                <button class="btn btn-primary" id="send-answer">Send Answer</button>
+                </span>
+                </div>`);
+
+                $('#send-answer').click(function (e) {
+                    e.preventDefault();
+                    $('#send-answer').unbind();
+                    let answer = $('input[name=answer]').val();
+                    socket.emit('answer',  {'answer': answer});
+                })
             }
+        });
+
+        socket.on('game-finished', function (data) {
+
         });
 
         socket.on('update-joined-users', function (data) {

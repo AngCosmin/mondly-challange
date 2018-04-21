@@ -39,7 +39,12 @@ class RoomController extends Controller
 
         $room->status = RoomStatus::IN_PROGRESS;
         $room->save();
+    }
 
-        return $slug;
+    public function finishRoomGame($slug){
+        $room = Room::where('slug', $slug)->first();
+
+        $room->status = RoomStatus::OPEN;
+        $room->save();
     }
 }

@@ -69,7 +69,7 @@ rooms.on('connection', function (socket){
         for (let i = 0; i < 5; i++) {
             axios.get(url).then(response => {
                 let result = response.data;
-                let object = { 'question': result.question, 'word': result.word, 'options': result.options, 'answer': result.answer, 'started_at': 0 }
+                let object = { 'question': result.question, 'word': result.word, 'options': result.options, 'answer': result.answer,'picture': result.picture, 'started_at': 0 }
 
                 roomsQuestions[room].push(object);
 

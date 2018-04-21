@@ -46,7 +46,7 @@ class QuizController extends Controller
                 $word = Word::inRandomOrder()->limit(1)->first();
                 $quiz_question['question'] = $translate_questions->translate(('Write down the object you see in this picture'));
                 $quiz_question['answer'] = $translate_answers->translate($word->word);
-                $quiz_question['picture'] = $word->piture;
+                $quiz_question['picture'] = 'http://mondly.challenge.local:8080/images/words/'.$word->picture;
                 break;
         }
 
