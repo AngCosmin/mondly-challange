@@ -139,8 +139,6 @@
 
         socket.on('online_rooms', function (data) {
             for(key in data){
-                // The key is key
-                // The value is obj[key]
                 $('#' + key).html(data[key]);
                 console.log(key + " " + data[key]);
             }

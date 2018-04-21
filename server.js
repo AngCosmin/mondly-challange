@@ -10,18 +10,6 @@ var inProgressRooms = [];
 var rooms = io.of('/room');
 var home = io.of('/home');
 
-function setOnlinePlayers(room) {
-    const url = "http://mondly-challange.local/room/update-online?room_slug=" + room + "&online=" + roomOnlineUsers[room];
-    // const url = "http://mondly.challenge.local:8080/room/update-online?room_slug=" + room + "&online=" + roomOnlineUsers[room];
-
-    axios.get(url).then(response => {
-        let result = response.data;
-    })
-    .catch(error => {
-        console.log(error);
-    });
-}
-
 rooms.on('connection', function (socket){
     socket.on('join-room', function (data) {
         let room = data.room;
@@ -45,9 +33,6 @@ rooms.on('connection', function (socket){
             roomOnlineUsers[room]++;
         }
 
-        // Set online players
-        setOnlinePlayers(socket.room);
-
         socket.join(room);
         rooms.in(room).emit('update-joined-users', roomsArray[room]);
 
@@ -70,7 +55,6 @@ rooms.on('connection', function (socket){
 
         // Decrease online players
         roomOnlineUsers[socket.room]--;
-        setOnlinePlayers(socket.room);
 
         home.emit('online_rooms', roomOnlineUsers);
 
@@ -88,8 +72,8 @@ rooms.on('connection', function (socket){
 
         console.log(inProgressRooms);
 
-        const url = "http://mondly.challenge.local:8080/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
-        // const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
+        // const url = "http://mondly.challenge.local:8080/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
+        const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
 
         // Generate 5 questions
         roomsQuestions[room] = [];
