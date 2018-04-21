@@ -152,7 +152,7 @@
         });
 
         socket.on('finish-round', function (data) {
-            
+
         });
 
         socket.on('update-joined-users', function (data) {

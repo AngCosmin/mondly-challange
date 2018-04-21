@@ -1,4 +1,5 @@
 var io = require('socket.io')(3000);
+var axios = require("axios");
 
 io.on('connection', function (socket) {
 	socket.on('msg', function (data) {
@@ -58,6 +59,15 @@ rooms.on('connection', function (socket){
         inProgressRooms.push({ room: room, started_at: timestamp });
 
         console.log(inProgressRooms);
+
+        const url = "http://mondly-challange.local/get-question";
+        axios.get(url)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            });
     });
 
     socket.on('chat-message', function (data) {

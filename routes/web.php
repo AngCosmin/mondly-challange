@@ -28,6 +28,6 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('create', 'RoomController@create')->name('create');
     });
-
-    Route::get('get-question', 'QuizController@generateQuizQuestion')->name('get.quiz.question');
 });
+
+Route::get('get-question', 'QuizController@generateQuizQuestion')->name('get.quiz.question');
