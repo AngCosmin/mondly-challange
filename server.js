@@ -105,7 +105,7 @@ setInterval(function() {
             let started_at = roomsQuestions[room][0].started_at;
             let passed_time = current_timestamp - started_at;
 
-            if (passed_time > 10) {
+            if (passed_time > 11) {
                 // Remove it from the list
                 roomsQuestions[room].splice(0, 1)
 
@@ -127,11 +127,9 @@ setInterval(function() {
                 }
             }
             else {
-                let time_left = 10 - passed_time;
+                let time_left = 11 - passed_time;
                 rooms.in(room).emit('update-time-left', { timeleft: time_left });
             }
         }
     });
-
-    console.log(inProgressRooms);
 }, 1000);
