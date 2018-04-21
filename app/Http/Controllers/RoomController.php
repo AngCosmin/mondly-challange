@@ -28,12 +28,12 @@ class RoomController extends Controller
             return redirect()->route('home')->with('info', 'Room not found!');
         }
 
-        if($room->status != RoomStatus::OPEN && $room->status != RoomStatus::PASSWORD_PROTECT){
-            return redirect()->route('home')->withErrors('Room already in game!');
-        }
-
-        $room->status = RoomStatus::IN_PROGRESS;
-        $room->save();
+//        if($room->status != RoomStatus::OPEN && $room->status != RoomStatus::PASSWORD_PROTECT){
+//            return redirect()->route('home')->withErrors('Room already in game!');
+//        }
+//
+//        $room->status = RoomStatus::IN_PROGRESS;
+//        $room->save();
 
         return view('room', compact('room'));
     }
