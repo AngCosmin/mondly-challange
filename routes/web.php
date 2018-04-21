@@ -30,6 +30,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::post('create', 'RoomController@create')->name('create');
     });
+
+    Route::get('/leaderboard', 'LeaderBoardController@index')->name('leaderboard');
 });
 
 Route::get('get-question', 'QuizController@generateQuizQuestion')->name('get.quiz.question');
+
+Route::get('add-question-points', 'QuizController@addPoints')->name('quiz.points');

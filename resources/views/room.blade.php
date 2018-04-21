@@ -164,6 +164,14 @@
         socket.on('evaluate', function (data) {
            if (data.correct === 'true') {
                $('.question').append('<div class="text-success">Correct</div>');
+
+               $.ajax({
+                   url: '{{ route('quiz.points') }}',
+                   type: 'GET',
+                   data: {
+                       user_id: '{{ Auth::id() }}'
+                   }
+               });
            }
            else {
                $('.question').append('<div class="text-danger">Incorrect</div>');
