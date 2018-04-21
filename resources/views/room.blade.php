@@ -20,8 +20,26 @@
 
 @section('after-scripts')
     <script>
+
+        $.ajax({
+            url: '{{ route('get.quiz.question') }}',
+            type: 'GET',
+            data: {
+                game_mode: '{{ $room->game_mode }}',
+                main_language: '{{ $room->known_lang->short_code }}',
+                foreign_language: '{{ $room->foreign_lang->short_code }}'
+            },
+            error: function() {
+                console.log('error')
+            },
+            dataType: 'json',
+            success: function(data) {
+                console.log(data)
+            }
+        });
+
         var socket = io('http://localhost:3000/room');
-        var room =  '{{ $slug }}';
+        var room =  '{{ $room->slug }}';
 
         socket.on('connect', function () {
             socket.emit('join-room', room);

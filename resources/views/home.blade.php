@@ -99,6 +99,14 @@
                         {{ Form::select('max_players', [2 => '2', 3 => '3', 4 => '4'], null, ['class' => 'form-control']) }}
                     </div>
 
+                    <div class="form-group">
+                        <label>Game Mode</label>
+                        {{ Form::select('game_mode',
+                        [\App\Models\Enums\GameMode::TRANSLATE_W => 'Words',
+                        \App\Models\Enums\GameMode::TRANSLATE_P => 'Phrases',
+                        \App\Models\Enums\GameMode::PICTURE => 'Pictures'], null, ['class' => 'form-control']) }}
+                    </div>
+
                 </div>
             </div>
             <div class="modal-footer">

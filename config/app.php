@@ -235,6 +235,9 @@ return [
          */
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        'PremiumPlans'  => App\Models\Enums\GameMode::class,
+        'PremiumPlans'  => App\Models\Enums\RoomStatus::class,
     ],
 
 ];
