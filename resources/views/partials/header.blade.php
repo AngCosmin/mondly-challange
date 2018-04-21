@@ -8,16 +8,16 @@
                 <!-- Logo icon --><b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="theme/assets/images/logo-icon.png" alt="homepage" class="dark-logo"/>
+                    <img src="{{ asset('theme/assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo"/>
                     <!-- Light Logo icon -->
-                    <img src="theme/assets/images/logo-light-icon.png" alt="homepage" class="light-logo"/>
+                    <img src="{{ asset('theme/assets/images/logo-light-icon.png') }}" alt="homepage" class="light-logo"/>
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text --><span>
                          <!-- dark Logo text -->
-                         <img src="theme/assets/images/logo-text.png" alt="homepage" class="dark-logo"/>
+                         <img src="{{ asset('theme/assets/images/logo-text.png') }}" alt="homepage" class="dark-logo"/>
                     <!-- Light Logo text -->
-                         <img src="theme/assets/images/logo-light-text.png" class="light-logo" alt="homepage"/></span>
+                         <img src="{{ asset('theme/assets/images/logo-light-text.png') }}" class="light-logo" alt="homepage"/></span>
             </a>
         </div>
         <div class="navbar-collapse">
@@ -51,13 +51,13 @@
                 @if(Auth::user())
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><img src="theme/assets/images/users/1.jpg"
+                           aria-haspopup="true" aria-expanded="false"><img src="{{asset('theme/assets/images/users/1.jpg')}}"
                                                                            alt="user" class="profile-pic"/></a>
                         <div class="dropdown-menu dropdown-menu-right animated flipInY">
                             <ul class="dropdown-user">
                                 <li>
                                     <div class="dw-user-box">
-                                        <div class="u-img"><img src="theme/assets/images/users/1.jpg" alt="user"></div>
+                                        <div class="u-img"><img src="{{ asset('theme/assets/images/users/1.jpg') }}" alt="user"></div>
                                         <div class="u-text">
                                             <h4>{{ Auth::user()->name }}</h4>
                                         </div>
