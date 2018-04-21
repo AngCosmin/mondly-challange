@@ -108,23 +108,9 @@
 @section('after-scripts')
     <script src="{{ asset('theme/horizontal/js/chat.js') }}"></script>
     <script>
-
-        $.ajax({
-            url: '{{ route('get.quiz.question') }}',
-            type: 'GET',
-            data: {
-                game_mode: '{{ $room->game_mode }}',
-                main_language: '{{ $room->known_lang->short_code }}',
-                foreign_language: '{{ $room->foreign_lang->short_code }}'
-            },
-            error: function () {
-                console.log('error')
-            },
-            dataType: 'json',
-            success: function (data) {
-                console.log(data)
-            }
-        });
+        var gamemode = '{{ $room->game_mode }}';
+        var main_language = '{{ $room->known_lang->short_code }}';
+        var foreign_language = '{{ $room->foreign_lang->short_code }}';
 
         $('#start-round').click(function () {
             $.ajax({
@@ -134,9 +120,9 @@
                     console.log('error')
                 },
                 success: function (data) {
-                    $('#start-game').hide();
+                    $('#start-round').hide();
 
-                    socket.emit('start-round');
+                    socket.emit('start-round', { 'gamemode': gamemode, 'main_language': main_language, 'foreign_language': foreign_language });
                 }
             });
         });
@@ -164,6 +150,10 @@
 
         socket.on('finish-round', function (data) {
 
+        });
+
+        socket.on('new-question', function (data) {
+            
         });
 
         socket.on('update-joined-users', function (data) {

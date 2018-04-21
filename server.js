@@ -53,17 +53,21 @@ rooms.on('connection', function (socket){
     socket.on('start-round', function (data) {
         let room = socket.room;
         let timestamp = Math.round((new Date()).getTime() / 1000);
+        let gamemode = data.gamemode;
+        let main_language = data.main_language;
+        let foreign_language = data.foreign_language;
 
         rooms.in(room).emit('start-round');
 
-        inProgressRooms.push({ room: room, started_at: timestamp });
+        inProgressRooms.push({ question_number: 1, room: room, started_at: timestamp });
 
         console.log(inProgressRooms);
 
-        const url = "http://mondly-challange.local/get-question";
+        const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
         axios.get(url)
             .then(response => {
-                console.log(response);
+                let result = response.data;
+                rooms.in(room).emit('new-question', { 'question': result.question, 'word': result.word, 'option': result.options });
             })
             .catch(error => {
                 console.log(error);
