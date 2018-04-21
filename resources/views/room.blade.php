@@ -26,9 +26,7 @@
                         </h3>
                         <br>
                         <form id="answer-form">
-                            <div class="answer">
 
-                            </div>
                         </form>
 
                     </div>
@@ -164,7 +162,7 @@
         socket.on('new-question', function (data) {
             console.log(data);
             $('.question').html('');
-            $('.answer').html('');
+            $('#answer-form').html('');
 
 
             $('.question').append('<h3>' + data.question + '</h3>');
@@ -172,9 +170,10 @@
 
             if (gamemode == '{{ \App\Models\Enums\GameMode::TRANSLATE_W }}') {
                 data.options.forEach(function (element) {
-                    $('.answer').append('<input type="radio" class="with-gap radio-col-light-blue" name="answer" value="' + element + '" id="' + element + '"><label for="'+element+'">'+element+'</label>')
+                    $('#answer-form').append('<input type="radio" class="with-gap radio-col-light-blue" name="answer" value="' + element + '" id="' + element + '"><label for="'+element+'">'+element+'</label>')
                 });
-                $('#answer-form').append('<button class="btn btn-primary" id="send-answer">Send Answer</button>');
+                $('#answer-form').append('<button class="btn btn-primary pull-right" id="send-answer">Send Answer</button>');
+
                 $('#send-answer').click(function (e) {
                     e.preventDefault();
                     let answer = $('input[name=answer]:checked').val();
