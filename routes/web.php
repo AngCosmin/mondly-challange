@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('{slug}', 'RoomController@joinRoom')->name('join');
 
         Route::get('start/{slug}', 'RoomController@startRoomGame')->name('start');
+        Route::get('finish/{slug}', 'RoomController@finishRoomGame')->name('finish');
 
         Route::post('create', 'RoomController@create')->name('create');
 

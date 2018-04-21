@@ -54,7 +54,6 @@ class RoomController extends Controller
 
         $room->omline = $request->online;
         $room->save();
-
     }
 
 }
