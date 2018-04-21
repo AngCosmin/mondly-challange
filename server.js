@@ -65,7 +65,7 @@ rooms.on('connection', function (socket){
         // const url = "http://mondly.challenge.local:8080/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
 
 
-        const url = "http://mondly.challenge.local:8080/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
+        const url = "http://mondly-challange.local/get-question?game_mode=" + gamemode + "&main_language=" + main_language + "&foreign_language=" +foreign_language;
 
         // Generate 5 questions
         roomsQuestions[room] = [];
@@ -100,7 +100,12 @@ rooms.on('connection', function (socket){
         let answer = data.answer;
         let correct_answer = roomsQuestions[socket.room][0].answer;
 
-        console.log('Your answer ' + answer + ' Correct ' + correct_answer);
+        if (answer == correct_answer) {
+            socket.emit('evaluate', { 'correct': 'true' });
+        }
+        else {
+            socket.emit('evaluate', { 'correct': 'false' });
+        }
     });
 });
 

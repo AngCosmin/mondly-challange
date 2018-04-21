@@ -155,8 +155,19 @@
             $('#time-left').html(data.timeleft);
         });
 
-        socket.on('finish-round', function (data) {
+        socket.on('game-finished', function (data) {
+            $('#start-round').show();
+            $('.question').html('');
+            $('#answer-form').html('');
+        });
 
+        socket.on('evaluate', function (data) {
+           if (data.correct === 'true') {
+               $('.question').append('<div class="text-success">Correct</div>');
+           }
+           else {
+               $('.question').append('<div class="text-danger">Incorrect</div>');
+           }
         });
 
         socket.on('new-question', function (data) {
@@ -170,8 +181,12 @@
 
             if (gamemode == '{{ \App\Models\Enums\GameMode::TRANSLATE_W }}') {
                 data.options.forEach(function (element) {
-                    $('#answer-form').append('<input type="radio" class="with-gap radio-col-light-blue" name="answer" value="' + element + '" id="' + element + '"><label for="'+element+'">'+element+'</label>')
+                    $('#answer-form').append(`
+                        <input type="radio" class="with-gap radio-col-light-blue" name="answer" value="${element}" id="${element}">
+                        <label for="${element}">${element}</label>`
+                    );
                 });
+
                 $('#answer-form').append('<button class="btn btn-primary pull-right" id="send-answer">Send Answer</button>');
 
                 $('#send-answer').click(function (e) {
