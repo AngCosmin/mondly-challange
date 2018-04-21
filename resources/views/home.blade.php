@@ -2,11 +2,7 @@
 
 @section('content')
 <div class="container">
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
+    @include('partials.messages')
 
     <div class="row">
         <div class="col-md-12">
@@ -52,7 +48,9 @@
                                     <td>{{ $room->max_players }}</td>
                                     <td>{{ $room->created_by_user->name }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary" type="button">Join</button>
+                                        <a href="{{ route('room.join', $room->slug) }}">
+                                            <button class="btn btn-sm btn-primary" type="button">Join</button>
+                                        </a>
                                     </td>
                                 </tr>
 
