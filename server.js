@@ -92,8 +92,7 @@ rooms.on('connection', function (socket){
     });
 
     socket.on('chat-message', function (data) {
-        rooms.in(data.room).emit('message', data.message);
-        console.log('Mesajul ' + data.message);
+        rooms.in(data.room).emit('message', { 'username': data.username, 'message': data.message });
     });
 
     socket.on('answer', function (data) {

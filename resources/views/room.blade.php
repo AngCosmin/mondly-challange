@@ -12,23 +12,14 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        @if(Auth::id() == $room->created_by)
-                            <button class="btn btn-primary" id="start-round">
-                                Start
-                            </button>
-                        @endif
+                        <div class="question"></div>
 
-                        <div class="question">
-
-                        </div>
-                        <h3>
-                            <small class="pull-right">Time left <span id="time-left">#</span></small>
+                        <h3 class="m-b-20">
+                            <small id="time-left-all" class="pull-right">Time left <span id="time-left">#</span></small>
                         </h3>
+
                         <br>
-                        <form id="answer-form">
-
-                        </form>
-
+                        <form id="answer-form"></form>
                     </div>
                 </div>
             </div>
@@ -40,6 +31,12 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
+                                @if(Auth::id() == $room->created_by)
+                                    <button class="btn btn-primary btn-block m-b-20" id="start-round">
+                                        Start
+                                    </button>
+                                @endif
+
                                 <div class="table-responsive">
                                     <table class="table color-bordered-table info-bordered-table" style="height: 100%">
                                         <thead>
@@ -56,35 +53,6 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="chat-right-aside">
-                                    <div class="chat-rbox">
-                                        <ul class="chat-list">
-                                            <!--chat Row -->
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>James Anderson</h5>
-                                                    <div class="box bg-light-info">Lorem Ipsum is simply dummy text of
-                                                        the printing &amp; type setting industry.
-                                                    </div>
-                                                </div>
-                                                <div class="chat-time">10:56 am</div>
-                                            </li>
-                                            <!--chat Row -->
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>Bianca Doe</h5>
-                                                    <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li>
-                                            <li>
-                                                <div class="chat-content">
-                                                    <h5>Bianca Doe</h5>
-                                                    <div class="box bg-light-info">It’s Great opportunity to work.</div>
-                                                </div>
-                                                <div class="chat-time">10:57 am</div>
-                                            </li>
-                                        </ul>
-                                    </div>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-8">
@@ -97,6 +65,13 @@
                                                 </button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="chat-rbox">
+                                        <ul class="chat-list">
+                                            <li>
+                                                <div class="chat-content"></div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -114,6 +89,8 @@
         var gamemode = '{{ $room->game_mode }}';
         var main_language = '{{ $room->known_lang->short_code }}';
         var foreign_language = '{{ $room->foreign_lang->short_code }}';
+
+        $('#time-left-all').hide();
 
         $('#start-round').click(function () {
             $.ajax({
@@ -144,11 +121,17 @@
         });
 
         $('#chat-send').click(function () {
-            socket.emit('chat-message', {'room': room, 'message': $('#chat-message').val()});
+            if ($('#chat-message').val() != '') {
+                socket.emit('chat-message', {'room': room, 'username': username, 'message': $('#chat-message').val()});
+                $('#chat-message').val('');
+            }
         });
 
         socket.on('message', function (data) {
-            console.log('Message ' + data);
+            $('.chat-content').prepend(`
+                <h5>${data.username}</h5>
+                <div class="box bg-light-info">${data.message}</div>
+            `);
         });
 
         socket.on('update-time-left', function (data) {
@@ -159,6 +142,7 @@
             $('#start-round').show();
             $('.question').html('');
             $('#answer-form').html('');
+            $('#time-left-all').hide();
         });
 
         socket.on('evaluate', function (data) {
@@ -171,7 +155,7 @@
         });
 
         socket.on('new-question', function (data) {
-            console.log(data);
+            $('#time-left-all').show();
             $('.question').html('');
             $('#answer-form').html('');
 
@@ -187,7 +171,7 @@
                     );
                 });
 
-                $('#answer-form').append('<button class="btn btn-primary pull-right" id="send-answer">Send Answer</button>');
+                $('#answer-form').append('<br><button class="btn btn-primary" id="send-answer">Send Answer</button>');
 
                 $('#send-answer').click(function (e) {
                     e.preventDefault();
