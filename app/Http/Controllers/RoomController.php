@@ -31,7 +31,6 @@ class RoomController extends Controller
         if($room->status != RoomStatus::OPEN && $room->status != RoomStatus::PASSWORD_PROTECT){
             return redirect()->route('home')->withErrors('Room already in game!');
         }
-
         return view('room', compact('room'));
     }
 

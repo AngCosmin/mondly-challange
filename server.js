@@ -53,7 +53,6 @@ rooms.on('connection', function (socket){
 
     socket.on('start-round', function (data) {
         let room = socket.room;
-        let timestamp = Math.round((new Date()).getTime() / 1000);
         let gamemode = data.gamemode;
         let main_language = data.main_language;
         let foreign_language = data.foreign_language;
