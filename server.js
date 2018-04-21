@@ -13,12 +13,12 @@ io.on('connection', function (socket) {
 });
 
 
-var nsp = io.of('/my-namespace');
-nsp.on('connection', function(socket){
-    console.log('someone connected');
+var room = io.of('/room');
 
+room.on('connection', function (socket){
+    socket.on('room', function (room) {
+        socket.join(room);
+    })
 });
 
-setInterval(function () {
-    nsp.emit('hi', {'who': 'everyone!'});
-}, 1000);
+room.in('asdsa-171').emit('message', 'Salut!');

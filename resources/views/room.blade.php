@@ -50,14 +50,14 @@
 
 @section('after-scripts')
     <script>
-        var socket = io('http://localhost:3000/my-namespace');
+        var socket = io('http://localhost:3000/room');
 
         socket.on('connect', function () {
-            socket.emit('msg', {'title': 'ceva'});
+            socket.emit('room', 'asdsa-171')
         });
 
-        socket.on('hi', function (data) {
-            console.log(data);
+        socket.on('message', function (data) {
+            console.log('Message ' + data);
         })
     </script>
 @endsection
