@@ -12,6 +12,27 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        @if(Auth::id() == $room->created_by)
+                            <button class="btn btn-primary" id="start">
+                                Start
+                            </button>
+                        @endif
+                        <div class="question">
+                            <h3>Question</h3>
+                        </div>
+                        <br>
+                        <div class="answer">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="table-responsive">
@@ -31,12 +52,14 @@
                             <div class="col-md-8">
                                 <div class="chat-right-aside">
                                     <div class="chat-rbox">
-                                        <ul class="chat-list" >
+                                        <ul class="chat-list">
                                             <!--chat Row -->
                                             <li>
                                                 <div class="chat-content">
                                                     <h5>James Anderson</h5>
-                                                    <div class="box bg-light-info">Lorem Ipsum is simply dummy text of the printing &amp; type setting industry.</div>
+                                                    <div class="box bg-light-info">Lorem Ipsum is simply dummy text of
+                                                        the printing &amp; type setting industry.
+                                                    </div>
                                                 </div>
                                                 <div class="chat-time">10:56 am</div>
                                             </li>
@@ -88,7 +111,8 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-8">
-                                                <textarea placeholder="Type your message here" class="form-control b-0" id="chat-message"></textarea>
+                                                <textarea placeholder="Type your message here" class="form-control b-0"
+                                                          id="chat-message"></textarea>
                                             </div>
                                             <div class="col-4 text-right">
                                                 <button type="button" class="btn btn-primary btn-lg" id="chat-send">
@@ -119,27 +143,27 @@
                 main_language: '{{ $room->known_lang->short_code }}',
                 foreign_language: '{{ $room->foreign_lang->short_code }}'
             },
-            error: function() {
+            error: function () {
                 console.log('error')
             },
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 console.log(data)
             }
         });
 
         var socket = io('http://localhost:3000/room');
-        var room =  '{{ $room->$slug }}';
+        var room = '{{ $room->slug }}';
         var userid = '{{ Auth::id() }}';
         var username = '{{ Auth::user()->name }}';
 
 
         socket.on('connect', function () {
-            socket.emit('join-room', { 'room': room, 'userid': userid, 'username': username });
+            socket.emit('join-room', {'room': room, 'userid': userid, 'username': username});
         });
 
         $('#chat-send').click(function () {
-            socket.emit('chat-message', {'room': room, 'message': $('#chat-message').val() });
+            socket.emit('chat-message', {'room': room, 'message': $('#chat-message').val()});
         });
 
         socket.on('message', function (data) {
