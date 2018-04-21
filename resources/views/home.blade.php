@@ -18,7 +18,7 @@
                             <div class="input-group">
                                 <input type="text" name="join-room-name" placeholder="Room name" class="form-control">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button">Join</button>
+                                    <button id="button-join-room" class="btn btn-primary" type="button">Join</button>
                                 </span>
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                             @foreach ($rooms as $room)
 
                                 <tr>
-                                    <td>{{ $room->name }}</td>
+                                    <td>{{ $room->slug }}</td>
                                     <td>{{ $room->known_lang->name }}</td>
                                     <td>{{ $room->foreign_lang->name }}</td>
                                     <td>{{ $room->max_players }}</td>
@@ -123,14 +123,10 @@
 
 @section('after-scripts')
     <script>
-        var socket = io('http://localhost:3000/my-namespace');
+        $('#button-join-room').click(function () {
+             let room_name = $('input[name=join-room-name]').val();
 
-        socket.on('connect', function () {
-            socket.emit('msg', {'title': 'ceva'});
+            window.location.href = '/room/' + room_name;
         });
-
-        socket.on('hi', function (data) {
-            console.log(data);
-        })
     </script>
 @endsection
