@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Room;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,10 +26,12 @@ class RoomController extends Controller
     
     public function joinRoom($slug)
     {
-        // TODO:
-        echo '<pre>';
-        print_r($slug);
-        echo '</pre>';
-        die();    
+        $room = Room::where('slug', $slug)->first();
+
+        if (!$room) {
+            return redirect()->route('home')->with('info', 'Room not found!');
+        }
+
+        return view('room');
     }
 }

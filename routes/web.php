@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
 
     Route::group(['prefix' => 'room', 'as' => 'room.'], function () {
-        Route::get('join/{slug}', 'RoomController@joinRoom')->name('join');
+        Route::get('{slug}', 'RoomController@joinRoom')->name('join');
 
         Route::post('create', 'RoomController@create')->name('create');
     });
