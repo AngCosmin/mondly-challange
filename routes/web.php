@@ -29,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('start/{slug}', 'RoomController@startRoomGame')->name('start');
 
         Route::post('create', 'RoomController@create')->name('create');
+
+        Route::post('update-online', 'RoomController@updateOnlinePlayers')->name('update-online');
     });
 
     Route::get('/leaderboard', 'LeaderBoardController@index')->name('leaderboard');

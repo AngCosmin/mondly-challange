@@ -50,6 +50,10 @@ class RoomController extends Controller
     }
 
     public function updateOnlinePlayers(Request $request){
+        $room = Room::where('slug', $request->room_slug)->first();
+
+        $room->omline = $request->online;
+        $room->save();
 
     }
 
