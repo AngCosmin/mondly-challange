@@ -34,6 +34,7 @@
                             <th> Foreign language </th>
                             <th> Max Players </th>
                             <th> Created by </th>
+                            <th> Status </th>
                             <th> Actions </th>
                         </tr>
                         </thead>
@@ -47,6 +48,11 @@
                                     <td>{{ $room->foreign_lang->name }}</td>
                                     <td>{{ $room->max_players }}</td>
                                     <td>{{ $room->created_by_user->name }}</td>
+                                    @if($room->status == \App\Models\Enums\RoomStatus::OPEN)
+                                        <td><span class="label label-success">Open</span></td>
+                                    @elseif($room->status == \App\Models\Enums\RoomStatus::IN_PROGRESS)
+                                        <td><span class="label label-danger">In Progress</span></td>
+                                    @endif
                                     <td>
                                         <a href="{{ route('room.join', $room->slug) }}">
                                             <button class="btn btn-sm btn-primary" type="button">Join</button>
