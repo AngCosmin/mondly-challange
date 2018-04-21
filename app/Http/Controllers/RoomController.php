@@ -48,4 +48,9 @@ class RoomController extends Controller
         $room->status = RoomStatus::OPEN;
         $room->save();
     }
+
+    public function updateOnlinePlayers(Request $request){
+
+    }
+
 }
