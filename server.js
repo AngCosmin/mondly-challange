@@ -33,6 +33,8 @@ rooms.on('connection', function (socket){
             roomOnlineUsers[room]++;
         }
 
+        roomsArray[room].push({ 'user_id': userid, 'username': username });
+
         socket.join(room);
         rooms.in(room).emit('update-joined-users', roomsArray[room]);
 
@@ -77,7 +79,7 @@ rooms.on('connection', function (socket){
 
         // Generate 5 questions
         roomsQuestions[room] = [];
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 2; i++) {
             axios.get(url).then(response => {
                 let result = response.data;
                 let object = { 'question': result.question, 'word': result.word, 'options': result.options, 'answer': result.answer,'picture': result.picture, 'started_at': 0 }

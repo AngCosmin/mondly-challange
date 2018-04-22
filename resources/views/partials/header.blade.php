@@ -54,7 +54,7 @@
         </div>
     </nav>
 </header>
-
+@if(Auth::user())
 <aside class="left-sidebar">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
@@ -82,7 +82,7 @@
     </div>
     <!-- End Sidebar scroll-->
 </aside>
-
+@endif
 <script>
     $('#logout').click(function (e) {
         e.preventDefault();
