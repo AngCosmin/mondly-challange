@@ -7,5 +7,3 @@
 Me and my teammate created a multiplayer quiz game for learning new languages. We had 10 hours and this is what we did: rooms system, chat per room, multiple game modes, getting points for correct answers and leaderboard.
 
 Technologies used: `NodeJS` `Laravel` `Socket.io`
-
-You can find the repo 🔗 [here](https://github.com/AngCosmin/mondly-challange)
